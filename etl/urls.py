@@ -4,6 +4,7 @@ from django.conf.urls import url
 from .models import Project
 from rest_framework import routers,serializers,viewsets
 
+from .views import submitTask,queryTask
 # 序列化
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -20,6 +21,8 @@ print(router.urls)
 
 # 
 urlpatterns = [
-    url(r'^',include(router.urls))
+    url(r'^',include(router.urls)),
+    path("submitTask",submitTask),
+    path("queryTask",queryTask)
 
 ]

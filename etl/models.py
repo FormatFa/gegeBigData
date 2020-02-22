@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 # 默认django会给每个model一个自增的字段 (Automatic primary key ﬁelds ,id)
 class Project(models.Model):
@@ -10,6 +9,12 @@ class Project(models.Model):
     desc = models.CharField(max_length=255,default="no description")
     #工程json数据
     data = models.TextField()
+    # 工程的状态
+    state = models.CharField(max_length=255,default="未知")
+    # 会是jar的提交方式，
+    batch_id = models.IntegerField(default=-1)
+
+    # 
 
 
 # 任务执行表,提交的任务运行情况
