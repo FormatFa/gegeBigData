@@ -1,0 +1,1 @@
+# python hiveserver2测试

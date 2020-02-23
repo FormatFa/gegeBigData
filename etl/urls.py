@@ -5,6 +5,13 @@ from .models import Project
 from rest_framework import routers,serializers,viewsets
 
 from .views import submitTask,queryTask
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication 
+
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+
+    def enforce_csrf(self, request):
+        return  # To not perform the csrf check previously happening
+ 
 # 序列化
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -12,6 +19,8 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id','desc','name','data']
 # 
 class UserViewSet(viewsets.ModelViewSet):
+    # 去除crsf验证
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)  
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 

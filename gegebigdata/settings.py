@@ -49,8 +49,9 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
+     
 # 设置访问url时通过哪一个urls文件，默认时gegebigdata下的
 ROOT_URLCONF = 'gegebigdata.urls'
 

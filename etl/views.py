@@ -63,20 +63,22 @@ def queryTask(request:HttpRequest):
         project = Project.objects.get(id=id)
 
         batch_id = project.batch_id
+        result={}
+        try:
+            res = requests.get(livy+'/batches/{}/state'.format(batch_id))
+            state = json.loads(res.text)
 
-        res = requests.get(livy+'/batches/{}/state'.format(batch_id))
-        state = json.loads(res.text)
-
-        
-        # 查询日志
-        res = requests.get(livy+'/batches/{}/log'.format(batch_id))
-        log = json.loads(res.text)
-        
-
-        result = {
+            
+            # 查询日志
+            res = requests.get(livy+'/batches/{}/log'.format(batch_id))
+            log = json.loads(res.text)
+            result = {
             'state':state,
             'log':log
         }
+        except:
+            pass
+        
 
         return JsonResponse(result)
 

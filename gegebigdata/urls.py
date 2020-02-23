@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls import url
+
 urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
-    path('cluster/',include('cluster.urls')),
-    path('etl/',include('etl.urls'))
-
+    path('api/cluster/',include('cluster.urls')),
+    path('api/etl/',include('etl.urls')),
+    path('api/user/',include('user.urls')),
+    path('api/query/',include('query.urls'))
 ]

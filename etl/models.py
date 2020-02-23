@@ -4,11 +4,11 @@ from django.db import models
 class Project(models.Model):
     # id = models.IntegerField(primary_key=True,)
     # 工程名字
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255,default='新工程')
     # 描述
     desc = models.CharField(max_length=255,default="no description")
     #工程json数据
-    data = models.TextField()
+    data = models.TextField(default='')
     # 工程的状态
     state = models.CharField(max_length=255,default="未知")
     # 会是jar的提交方式，
