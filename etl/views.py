@@ -9,6 +9,7 @@ from .models import Project
 import requests
 import json
 import logging
+from gegebigdata import utils
 logger = logging.getLogger(__name__)
 
 livy = 'http://192.168.4.101:8998'
@@ -34,23 +35,26 @@ def submitTask(request:HttpRequest):
         print(project)
         print(project.data)
         # 提交任务都livy
-        res = requests.post(livy+'/batches',json={
-            # 在服务器端的jar文件
-            'file':'/root/gegeCore-0.0.1-SNAPSHOT-jar-with-dependencies.jar',
-            'className':'formatfa.bigdata.gegeCore.GeSpark',
-            'args':[project.data]
-        })
-        result = res.text
-        resdata = json.loads(result)
-        print(result)
-        print('resdata:',resdata)
-        # 提取出batch id,方便后面查询
-        batch_id = resdata['id']
+        try:
+            res = requests.post(livy+'/batches',json={
+                # 在服务器端的jar文件
+                'file':'/root/gegeCore-0.0.1-SNAPSHOT-jar-with-dependencies.jar',
+                'className':'formatfa.bigdata.gegeCore.GeSpark',
+                'args':[project.data]
+            })
+            result = res.text
+            resdata = json.loads(result)
+            print(result)
+            print('resdata:',resdata)
+            # 提取出batch id,方便后面查询
+            batch_id = resdata['id']
 
-        project.batch_id = batch_id
-        project.save()
-        # 返回结果
-        return JsonResponse(resdata)
+            project.batch_id = batch_id
+            project.save()
+        except Exception as e:
+            return utils.response(-1,'请求livy失败:'+str(e))
+
+        return utils.response(resdata)
 @csrf_exempt
 #查询任务状态
 def queryTask(request:HttpRequest):
@@ -76,9 +80,9 @@ def queryTask(request:HttpRequest):
             'state':state,
             'log':log
         }
-        except:
-            pass
+        except Exception as e:
+            return utils.response(-1,'请求livy失败:'+str(e))
         
 
-        return JsonResponse(result)
+        return utils.response(result)
 
