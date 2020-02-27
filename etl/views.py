@@ -10,9 +10,15 @@ import requests
 import json
 import logging
 from gegebigdata import utils
+from user.configtool import readsetting
+
 logger = logging.getLogger(__name__)
 
+
 livy = 'http://192.168.4.101:8998'
+def getLivy():
+    setting = readsetting()
+    return setting['livyUrl']
 
 def get(url):
     res = requests.get(url)
@@ -36,7 +42,7 @@ def submitTask(request:HttpRequest):
         print(project.data)
         # 提交任务都livy
         try:
-            res = requests.post(livy+'/batches',json={
+            res = requests.post(getLivy()+'/batches',json={
                 # 在服务器端的jar文件
                 'file':'/root/gegeCore-0.0.1-SNAPSHOT-jar-with-dependencies.jar',
                 'className':'formatfa.bigdata.gegeCore.GeSpark',
@@ -69,12 +75,12 @@ def queryTask(request:HttpRequest):
         batch_id = project.batch_id
         result={}
         try:
-            res = requests.get(livy+'/batches/{}/state'.format(batch_id))
+            res = requests.get(getLivy()+'/batches/{}/state'.format(batch_id))
             state = json.loads(res.text)
 
             
             # 查询日志
-            res = requests.get(livy+'/batches/{}/log'.format(batch_id))
+            res = requests.get(getLivy()+'/batches/{}/log'.format(batch_id))
             log = json.loads(res.text)
             result = {
             'state':state,
@@ -84,5 +90,5 @@ def queryTask(request:HttpRequest):
             return utils.response(-1,'请求livy失败:'+str(e))
         
 
-        return utils.response(result)
+        return utils.response(1,data=result)
 
