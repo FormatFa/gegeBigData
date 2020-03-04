@@ -2,7 +2,9 @@ import requests
 import os
 
 
-
+'''
+livy api测试
+'''
 data = open('other/config.json','r').read()
 print(data)
 url=""

@@ -6,8 +6,12 @@ default_setting={
     # pyhdfs的url,逗号分割host,port
     'hdfsUrl':'192.168.4.101',
     # hiveserver2的url
-    'hiveServer2Url':'xxx'
+    'hiveServer2Url':'xxx',
+    # 核心jar的地址
+    'coreJar':'/root/gegeCore'
 }
+# 开启演示模式，部署在阿里云时。限制一些操作
+DEMO=True
 # 用户的设置
 setting_file='setting.json'
 

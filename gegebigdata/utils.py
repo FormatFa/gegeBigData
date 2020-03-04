@@ -1,10 +1,6 @@
 from django.http import HttpResponse,JsonResponse
 
-def errorResponse(errmsg):
-    return {
-        'code':-1,
-        'msg':errmsg
-    }
+# 接口统一使用这个
 def response(code,msg='',data=''):
     return JsonResponse(
         {

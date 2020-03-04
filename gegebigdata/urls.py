@@ -16,8 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls import url
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
+    # drf的 api地址
     url(r'^api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
     path('api/cluster/',include('cluster.urls')),
@@ -25,3 +26,6 @@ urlpatterns = [
     path('api/user/',include('user.urls')),
     path('api/query/',include('query.urls'))
 ]
+# 添加静态文件访问，使用gunicorn部署时，会找不到static下的文件
+
+urlpatterns += staticfiles_urlpatterns()

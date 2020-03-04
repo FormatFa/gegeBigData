@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +28,7 @@ SECRET_KEY = '(y2ef!ehb86bae)scx^*4q=m%zlrh(265re#gos@2@-wpj)#qu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -120,9 +123,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
-STATIC_URL = '/static/'
-
+#因为 部署vue在static里，
+STATIC_URL = '/gegebigdata/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
 # restful 框架的相关配置
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

@@ -10,6 +10,7 @@ def get_client():
     host = setting['hdfsUrl']
     client = pyhdfs.HdfsClient(hosts=host)
     return client
+    
 def deletedir(request:HttpRequest):
     if request.method=='GET':
         path = request.GET['path']

@@ -12,6 +12,8 @@ from pyhive import hive
 
 '''
 简陋，粗暴的实现 
+
+这里的hive功能还没测试
 '''
 def gethive():
     pass
@@ -52,7 +54,7 @@ def hivesql(request:HttpRequest):
             'columns':['name','age'],
             'data':[
                 ['formatfa',11],
-                ['bin',12]
+                ['test',12]
             ]
         }
         if forma=='json':

@@ -4,7 +4,7 @@ from django.conf.urls import url
 
 from .views import hivesql
 
-# 
+# url映射
 urlpatterns = [
     path("hivesql",hivesql)
 ]
